@@ -17,7 +17,7 @@ Maven
 Getting started:
 
 Clone the repository:
-git clone [https://github.com/your-username/spring-boot-blog-backend.git](https://github.com/Alokdey07/BlogProjectBackend/tree/main)
+git clone [https://github.com/Alokdey07/BlogProjectBackend/tree/main]
 Build the project:
 mvn clean install
 Start the server:
