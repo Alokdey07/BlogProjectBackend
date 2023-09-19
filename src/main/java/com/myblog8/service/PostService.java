@@ -6,4 +6,5 @@ public interface PostService {
 
     PostDto createPost(PostDto postDto);
 
+    void deletePostById(long userId);
 }

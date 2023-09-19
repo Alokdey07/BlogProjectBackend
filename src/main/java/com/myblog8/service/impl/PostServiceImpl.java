@@ -18,13 +18,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto createPost(PostDto postDto) {
+
+        // convert DTO to entity
         Post post=new Post();
         post.setTitle(postDto.getTitle());
         post.setDescription(postDto.getDescription());
         post.setContent(postDto.getContent());
 
         Post updatedPost = postRepository.save(post);
-
+        // convert entity to DTO
         PostDto dto=new PostDto();
         dto.setId(post.getId());
         dto.setTitle(post.getTitle());
@@ -34,5 +36,10 @@ public class PostServiceImpl implements PostService {
         return dto;
 
 
+    }
+
+    @Override
+    public void deletePostById(long userId) {
+        postRepository.deleteById(userId);
     }
 }
