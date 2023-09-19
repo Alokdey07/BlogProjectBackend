@@ -42,4 +42,30 @@ public class PostServiceImpl implements PostService {
     public void deletePostById(long userId) {
         postRepository.deleteById(userId);
     }
+
+    @Override
+    public PostDto updatePost(long userId,PostDto postDto) {
+
+        Post post = postRepository.findById(userId).get();
+
+        Post post1=new Post();
+        post1.setId(post.getId());
+        post1.setTitle(postDto.getTitle());
+        post1.setDescription(postDto.getDescription());
+        post1.setContent(postDto.getContent());
+
+        postRepository.save(post1);
+
+        PostDto dto=new PostDto();
+
+        dto.setId(post1.getId());
+        dto.setTitle(post1.getTitle());
+        dto.setDescription(post1.getDescription());
+        dto.setContent(post1.getContent());
+
+
+        return dto;
+    }
+
+
 }

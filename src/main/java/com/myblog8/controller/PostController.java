@@ -1,6 +1,7 @@
 package com.myblog8.controller;
 
 import com.myblog8.entity.Post;
+import com.myblog8.exception.ResourceNotFoundException;
 import com.myblog8.payload.PostDto;
 import com.myblog8.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,21 @@ public class PostController {
 
     //http://localhost:8080/api/posts/userId
     @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteById(@PathVariable long userId){
+    public ResponseEntity<String> deleteById(@PathVariable long userId) throws ResourceNotFoundException {
         postService.deletePostById(userId);
 
         return new ResponseEntity<>("Post Deleted Success With Id:  "+ userId,HttpStatus.OK);
     }
 
+
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<PostDto> updateById(@PathVariable long userId,@RequestBody PostDto postDto){
+
+        PostDto dto = postService.updatePost(userId,postDto);
+
+        return new ResponseEntity<>(dto,HttpStatus.OK);
+    }
 
 
 }
