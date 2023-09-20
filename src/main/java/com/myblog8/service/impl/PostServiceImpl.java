@@ -1,10 +1,13 @@
 package com.myblog8.service.impl;
 
 import com.myblog8.entity.Post;
+import com.myblog8.exception.ResourceNotFoundException;
 import com.myblog8.payload.PostDto;
 import com.myblog8.repository.PostRepository;
 import com.myblog8.service.PostService;
 import org.springframework.stereotype.Service;
+
+
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -40,6 +43,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void deletePostById(long userId) {
+
+        postRepository.findById(userId).orElseThrow(
+                ()->new ResourceNotFoundException("Post not found:"+userId)
+
+        );
         postRepository.deleteById(userId);
     }
 

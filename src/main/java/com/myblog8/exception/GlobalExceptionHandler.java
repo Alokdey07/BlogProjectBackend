@@ -23,16 +23,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDetails> globalExceptionHandler(Exception e, WebRequest webRequest){
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorDetails> globalExceptionHandler(Exception e, WebRequest webRequest){
+//
+//
+//        ErrorDetails errorDetails = new ErrorDetails(new Date(), e.getMessage(), webRequest.getDescription(false));
+//
+//        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 
 
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), e.getMessage(), webRequest.getDescription(false));
-
-        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
-
-
-    }
+   // }
 
 
 

@@ -1,5 +1,5 @@
 
-README.md
+
 Spring Boot Blog Backend
 
 This is a Spring Boot backend for a blog application. It is built using Java and provides a REST API for managing blog posts and comments.
