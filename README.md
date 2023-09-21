@@ -31,18 +31,19 @@ The following table lists the available endpoints and their methods:
 
 ## API Endpoints
 
-| Endpoint                        | Method | Description                                   |
-| ------------------------------- | ------ | --------------------------------------------- |
-| `/blogs`                        | GET    | Get all blog posts                           |
-| `/blogs/{id}`                   | GET    | Get a single blog post by ID                 |
-| `/blogs`                        | POST   | Create a new blog post                       |
-| `/blogs/{id}`                   | PUT    | Update an existing blog post                 |
-| `/blogs/{id}`                   | DELETE | Delete a blog post                           |
-| `/blogs/{id}/comments`          | GET    | Get all comments on a blog post              |
-| `/blogs/{id}/comments`          | POST   | Create a new comment on a blog post          |
-| `/blogs/{id}/comments/{commentId}` | GET    | Get a single comment on a blog post by ID   |
-| `/blogs/{id}/comments/{commentId}` | PUT    | Update an existing comment on a blog post   |
-| `/blogs/{id}/comments/{commentId}` | DELETE | Delete a comment on a blog post             |
+| Endpoint                             | Method | Description                                |
+| ------------------------------------ | ------ | ------------------------------------------ |
+| `http://localhost:8080/api/posts`    | GET    | Get all blog posts                         |
+| `http://localhost:8080/api/posts/{id}` | GET    | Get a single blog post by ID               |
+| `http://localhost:8080/api/posts`    | POST   | Create a new blog post                     |
+| `http://localhost:8080/api/posts/{id}` | PUT    | Update an existing blog post               |
+| `http://localhost:8080/api/posts/{id}` | DELETE | Delete a blog post                         |
+| `/blogs/{id}/comments`               | GET    | Get all comments on a blog post            |
+| `/blogs/{id}/comments`               | POST   | Create a new comment on a blog post        |
+| `/blogs/{id}/comments/{commentId}`   | GET    | Get a single comment on a blog post by ID |
+| `/blogs/{id}/comments/{commentId}`   | PUT    | Update an existing comment on a blog post |
+| `/blogs/{id}/comments/{commentId}`   | DELETE | Delete a comment on a blog post           |
+
 
 Authentication:
 
