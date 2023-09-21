@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 public class ResourceNotFoundException extends RuntimeException{
 
-    public ResourceNotFoundException(String msg) {
+    //This method is called through streamApi in the ServiceImpl class with a exception string message
+    public ResourceNotFoundException(String msg)
+    {
 
         super(msg);
     }
