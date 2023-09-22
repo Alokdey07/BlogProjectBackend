@@ -71,15 +71,16 @@ public class PostServiceImpl implements PostService {
         // Save the updated post in the repository
         postRepository.save(post1);
 
-        PostDto dto=new PostDto();
+        //PostDto dto=new PostDto();
         // Convert the updated entity back to a DTO and return it
-        dto.setId(post1.getId());
-        dto.setTitle(post1.getTitle());
-        dto.setDescription(post1.getDescription());
-        dto.setContent(post1.getContent());
+//        dto.setId(post1.getId());
+//        dto.setTitle(post1.getTitle());
+//        dto.setDescription(post1.getDescription());
+//        dto.setContent(post1.getContent());
 
+        //this can be also done in single line
 
-        return dto;
+        return mapToDto(post1);
     }
 
     // Find a post by its ID and return it as a PostDto
