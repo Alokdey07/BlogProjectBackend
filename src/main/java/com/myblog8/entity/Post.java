@@ -4,6 +4,8 @@ import ch.qos.logback.classic.db.names.ColumnName;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -27,4 +29,8 @@ public class Post {
     // The content of the blog post, which is required and mapped to the "content" column
     @Column(name="content", nullable=false)
     private String content;
+
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL,orphanRemoval = true)
+   private List<Comment> comments=new ArrayList<>();
 }

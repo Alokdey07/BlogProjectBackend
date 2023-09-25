@@ -49,6 +49,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePostById(long userId) {
 
+        //first find a post exist or not
         postRepository.findById(userId).orElseThrow(
                 ()->new ResourceNotFoundException("Post not found with userid:"+userId)
 
