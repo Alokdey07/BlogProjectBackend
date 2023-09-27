@@ -17,8 +17,9 @@ public class CommentServiceImpl implements CommentService {
 
     private PostRepository postRepo;
 
-    public CommentServiceImpl(CommentRepository commentRepo) {
+    public CommentServiceImpl(CommentRepository commentRepo,PostRepository postRepo) {
         this.commentRepo = commentRepo;
+        this.postRepo=postRepo;
     }
 
     @Override

@@ -12,6 +12,10 @@ public class CommentController {
 
     private CommentService commentService;
 
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
     // http://localhost:8080/api/comments/{postId}
     @PostMapping("/{postId}")
     public ResponseEntity<CommentDto> saveComment(@RequestBody CommentDto commentDto, @PathVariable long postId){
