@@ -1,6 +1,5 @@
 package com.myblog8.service;
 
-import com.myblog8.entity.Post;
 import com.myblog8.payload.PostDto;
 
 import java.util.List;
@@ -19,5 +18,5 @@ public interface PostService {
     PostDto findPostById(long postId);
 
     // Retrieve a list of all blog posts
-    List<PostDto> getAllPost();
+    List<PostDto> getAllPost(int pageNo, int pageSize);
 }

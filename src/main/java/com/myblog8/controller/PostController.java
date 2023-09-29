@@ -5,8 +5,10 @@ import com.myblog8.exception.ResourceNotFoundException;
 import com.myblog8.payload.PostDto;
 import com.myblog8.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +28,7 @@ public class PostController {
 
     // Create a new blog post via a POST request
     // Example URL: http://localhost:8080/api/posts
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto){
         PostDto dto = postService.createPost(postDto);
@@ -38,6 +41,7 @@ public class PostController {
     // Example URL: http://localhost:8080/api/posts/userId
 
     //http://localhost:8080/api/posts/userId
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteById(@PathVariable long userId) throws ResourceNotFoundException {
         // Call the service to delete the post by user ID
@@ -47,28 +51,40 @@ public class PostController {
     }
 
 
-    // Retrieve a list of all blog posts via a GET request
+
+    // Update a blog post by its user ID via a PUT request
+    // Example URL: http://localhost:8080/api/posts/userId
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{userId}")
     public ResponseEntity<PostDto> updateById(@PathVariable long userId,@RequestBody PostDto postDto){
-        // Call the service to get all blog posts
+        // Call the service to update a blog post by user ID
         PostDto dto = postService.updatePost(userId,postDto);
-        // Return the list of PostDto objects and HTTP status code 200 (OK)
+        // Return the updated PostDto and HTTP status code 200 (OK)
         return new ResponseEntity<>(dto,HttpStatus.OK);
     }
 
+    // Retrieve a blog post by its post ID via a GET request
+    // Example URL: http://localhost:8080/api/posts/postId
     @GetMapping("{postId}")
     public ResponseEntity<PostDto> findPostById(@PathVariable long postId){
+        // Call the service to find a blog post by post ID
         PostDto postByIdDto = postService.findPostById(postId);
-
+        // Return the found PostDto and HTTP status code 200 (OK)
 
         return new ResponseEntity<PostDto>(postByIdDto,HttpStatus.OK);
     }
-
+    // Retrieve a list of all blog posts via a GET request
     @GetMapping
-    public ResponseEntity<List<PostDto>> getAllPost(){
+    public ResponseEntity<List<PostDto>> getAllPost(
+            @RequestParam(value = "pageNo",defaultValue = "0",required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize)
 
-        List<PostDto> allPost = postService.getAllPost();
+    {
+        // Call the service to get all blog posts
+        List<PostDto> allPost = postService.getAllPost(pageNo,pageSize);
 
+
+        // Return the list of PostDto objects and HTTP status code 200 (OK)
         return new ResponseEntity<>(allPost,HttpStatus.OK);
     }
 

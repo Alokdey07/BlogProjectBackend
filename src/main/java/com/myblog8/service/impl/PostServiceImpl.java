@@ -5,10 +5,11 @@ import com.myblog8.exception.ResourceNotFoundException;
 import com.myblog8.payload.PostDto;
 import com.myblog8.repository.PostRepository;
 import com.myblog8.service.PostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -95,11 +96,16 @@ public class PostServiceImpl implements PostService {
     }
     // Get a list of all posts and return them as a list of PostDto objects
     @Override
-    public List<PostDto> getAllPost() {
+    public List<PostDto> getAllPost(int pageNo, int pageSize) {
+
+        PageRequest pageable = PageRequest.of(pageNo, pageSize);
+        Page<Post> all = postRepository.findAll(pageable);
+        List<Post> posts = all.getContent();
+
         // Find all posts in the repository
-        List<Post> findAllPost = postRepository.findAll();
+       // List<Post> findAllPost = postRepository.findAll();
         // Convert the list of entities to a list of DTOs and return it
-        List<PostDto> postDto = findAllPost.stream().map(post -> mapToDto(post)).collect(Collectors.toList());
+        List<PostDto> postDto = posts.stream().map(post -> mapToDto(post)).collect(Collectors.toList());
         return postDto;
     }
 

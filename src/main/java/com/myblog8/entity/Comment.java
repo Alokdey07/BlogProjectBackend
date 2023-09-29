@@ -21,6 +21,7 @@ public class Comment {
 
     private String email;
 
+    // Many-to-One relationship with the Post entity
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id",nullable = false)
     private Post post;
