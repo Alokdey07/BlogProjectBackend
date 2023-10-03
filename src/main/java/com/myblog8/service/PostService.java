@@ -18,5 +18,5 @@ public interface PostService {
     PostDto findPostById(long postId);
 
     // Retrieve a list of all blog posts
-    List<PostDto> getAllPost(int pageNo, int pageSize);
+    List<PostDto> getAllPost(int pageNo, int pageSize,String sortBy,String sortDir);
 }
