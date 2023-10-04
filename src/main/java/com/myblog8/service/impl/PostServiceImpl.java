@@ -3,10 +3,13 @@ package com.myblog8.service.impl;
 import com.myblog8.entity.Post;
 import com.myblog8.exception.ResourceNotFoundException;
 import com.myblog8.payload.PostDto;
+import com.myblog8.payload.PostResponse;
 import com.myblog8.repository.PostRepository;
 import com.myblog8.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -96,9 +99,9 @@ public class PostServiceImpl implements PostService {
     }
     // Get a list of all posts and return them as a list of PostDto objects
     @Override
-    public List<PostDto> getAllPost(int pageNo, int pageSize,String sortBy,String sortDir) {
-
-        PageRequest pageable = PageRequest.of(pageNo, pageSize);
+    public PostResponse getAllPost(int pageNo, int pageSize,String sortBy,String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortDir).ascending():Sort.by(sortDir).descending();
+        PageRequest pageable = PageRequest.of(pageNo,pageSize, sort);
         Page<Post> all = postRepository.findAll(pageable);
         List<Post> posts = all.getContent();
 
@@ -106,7 +109,17 @@ public class PostServiceImpl implements PostService {
        // List<Post> findAllPost = postRepository.findAll();
         // Convert the list of entities to a list of DTOs and return it
         List<PostDto> postDto = posts.stream().map(post -> mapToDto(post)).collect(Collectors.toList());
-        return postDto;
+        PostResponse postResponse = new PostResponse();
+        postResponse.setContent(postDto);
+        postResponse.setPageNo(all.getNumber());
+        postResponse.setPageSize(all.getSize());
+        postResponse.setTotalPages(all.getTotalPages());
+        postResponse.setTotalElements((int) all.getTotalElements());
+        postResponse.setLast(all.isLast());
+
+
+
+        return postResponse;
     }
 
     // Helper method to map a Post entity to a PostDto

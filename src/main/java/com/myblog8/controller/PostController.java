@@ -3,6 +3,7 @@ package com.myblog8.controller;
 import com.myblog8.entity.Post;
 import com.myblog8.exception.ResourceNotFoundException;
 import com.myblog8.payload.PostDto;
+import com.myblog8.payload.PostResponse;
 import com.myblog8.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -73,19 +74,20 @@ public class PostController {
     }
 
     // Retrieve a list of all blog posts via a GET request
+    //http://localhost:8080/api/posts?pageNo=0&pageSize=10&sortBy=content&sortDir=asc
     @GetMapping
-    public ResponseEntity<List<PostDto>> getAllPost(
+    public ResponseEntity<PostResponse> getAllPost(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String
                     sortDir) {
         // Call the service to get all blog posts
-        List<PostDto> allPost = postService.getAllPost(pageNo, pageSize, sortBy, sortDir);
+        PostResponse postResponse = postService.getAllPost(pageNo, pageSize, sortBy, sortDir);
 
 
         // Return the list of PostDto objects and HTTP status code 200 (OK)
-        return new ResponseEntity<>(allPost, HttpStatus.OK);
+        return new ResponseEntity<>(postResponse, HttpStatus.OK);
     }
 
 
