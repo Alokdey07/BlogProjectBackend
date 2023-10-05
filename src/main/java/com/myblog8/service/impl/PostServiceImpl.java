@@ -104,7 +104,7 @@ public class PostServiceImpl implements PostService {
     // Get a list of all posts and return them as a list of PostDto objects
     @Override
     public PostResponse getAllPost(int pageNo, int pageSize,String sortBy,String sortDir) {
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortDir).ascending():Sort.by(sortDir).descending();
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
         PageRequest pageable = PageRequest.of(pageNo,pageSize, sort);
         Page<Post> all = postRepository.findAll(pageable);
         List<Post> posts = all.getContent();
