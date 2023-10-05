@@ -6,6 +6,7 @@ import com.myblog8.payload.PostDto;
 import com.myblog8.payload.PostResponse;
 import com.myblog8.repository.PostRepository;
 import com.myblog8.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,9 +23,12 @@ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
 
+    private ModelMapper mapper;
+
     // Here initialiasation through constructor is done it is constructor injection
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, ModelMapper mapper) {
         this.postRepository = postRepository;
+        this.mapper=mapper;
     }
 
     // Create a new post based on the provided PostDto
@@ -39,13 +43,13 @@ public class PostServiceImpl implements PostService {
 
         Post updatedPost = postRepository.save(post);
         // convert entity to DTO
-        PostDto dto=new PostDto();
-        dto.setId(post.getId());
-        dto.setTitle(post.getTitle());
-        dto.setDescription(post.getDescription());
-        dto.setContent(post.getContent());
+//        PostDto dto=new PostDto();
+//        dto.setId(updatedPost.getId());
+//        dto.setTitle(updatedPost.getTitle());
+//        dto.setDescription(updatedPost.getDescription());
+//        dto.setContent(updatedPost.getContent());
 
-        return dto;
+        return mapToDto(updatedPost);
 
 
     }
@@ -124,14 +128,21 @@ public class PostServiceImpl implements PostService {
 
     // Helper method to map a Post entity to a PostDto
     public PostDto mapToDto(Post post){
+        PostDto postDto=mapper.map(post,PostDto.class);
 
-        PostDto dto=new PostDto();
-        dto.setId(post.getId());
-        dto.setContent(post.getContent());
-        dto.setDescription(post.getDescription());
-        dto.setTitle(post.getTitle());
+//        PostDto dto=new PostDto();
+//        dto.setId(post.getId());
+//        dto.setContent(post.getContent());
+//        dto.setDescription(post.getDescription());
+//        dto.setTitle(post.getTitle());
 
-        return dto;
+        return postDto;
+
+    }
+
+    private Post mapToEntity(PostDto postDto){
+        Post post=mapper.map(postDto,Post.class);
+        return post;
 
     }
 

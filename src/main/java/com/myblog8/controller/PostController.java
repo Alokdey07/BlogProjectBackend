@@ -10,8 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,9 +32,12 @@ public class PostController {
     // Example URL: http://localhost:8080/api/posts
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
-        PostDto dto = postService.createPost(postDto);
-        return new ResponseEntity<>(dto, HttpStatus.CREATED);
+    public ResponseEntity<?> createPost(@Valid @RequestBody PostDto postDto, BindingResult result) {
+        if(result.hasErrors()){
+            return new ResponseEntity<>(result.getFieldError().getDefaultMessage(), HttpStatus.CREATED);
+        }
+            PostDto dto = postService.createPost(postDto);
+            return new ResponseEntity<>(dto, HttpStatus.CREATED);
 
 
     }
